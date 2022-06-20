@@ -2,7 +2,6 @@
 using System.Linq;
 using Engine.Actions;
 using Engine.Models;
-
 namespace Engine.Factories
 {
     public static class ItemFactory
@@ -12,6 +11,10 @@ namespace Engine.Factories
         {
             BuildWeapon(1001, "Pointy Stick", 1, 1, 2);
             BuildWeapon(1002, "Rusty Sword", 5, 1, 3);
+            BuildWeapon(1501, "Snake fangs", 0, 0, 2);
+            BuildWeapon(1502, "Rat claws", 0, 0, 2);
+            BuildWeapon(1503, "Spider fangs", 0, 0, 4);
+            BuildHealingItem(2001, "Granola bar", 5, 2);
             BuildMiscellaneousItem(9001, "Snake fang", 1);
             BuildMiscellaneousItem(9002, "Snakeskin", 2);
             BuildMiscellaneousItem(9003, "Rat tail", 1);
@@ -33,6 +36,12 @@ namespace Engine.Factories
             GameItem weapon = new GameItem(GameItem.ItemCategory.Weapon, id, name, price, true);
             weapon.Action = new AttackWithWeapon(weapon, minimumDamage, maximumDamage);
             _standardGameItems.Add(weapon);
+        }
+        private static void BuildHealingItem(int id, string name, int price, int hitPointsToHeal)
+        {
+            GameItem item = new GameItem(GameItem.ItemCategory.Consumable, id, name, price);
+            item.Action = new Heal(item, hitPointsToHeal);
+            _standardGameItems.Add(item);
         }
     }
 }
